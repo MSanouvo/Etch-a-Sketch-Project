@@ -6,7 +6,7 @@ const container = document.getElementById("container")
 const button = document.querySelector('button')
 let end = 16
 
-function generateGrid(){
+function generateGrid(end){
     let i = 0
     let k = 0
     //container.setAttribute('style', "background: pink;")
@@ -34,11 +34,27 @@ function generateGrid(){
     }
 }
 
+function gridPrompt(){
+    end = prompt('Please select amount of grid sides. (max: 120)')
+    if(end > 120){
+        end = prompt('Number too large. Please try again. (max:120)')
+    } 
+    return end
+}
+
+function clearGrid(){
+    while(container.firstChild){
+        container.firstChild.remove()
+    }
+}
 
 //Event handlers
 addEventListener('load', (event) => {
-    console.log('page loaded')
-    generateGrid()
+    generateGrid(end)
 });
 
-button.addEventListener('click', generateGrid)
+button.addEventListener('click', () => {
+    gridPrompt()
+    clearGrid()
+    generateGrid(end) 
+})
